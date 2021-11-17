@@ -5,7 +5,7 @@ const parse = require('csv-parse');
 
 const csv_data = [];
 
-fs.createReadStream(__dirname + '/data/filenames.csv') 
+fs.createReadStream(`${__dirname}/data/filenames.csv`) 
 
     //Use pipe to read the stream and then parse the csv.
     .pipe(
@@ -25,6 +25,10 @@ fs.createReadStream(__dirname + '/data/filenames.csv')
 
         csv_data.forEach(row => {
             console.log(row);
+
+            fs.rename(`${__dirname}/data/files/${row.current_filename}`, `${__dirname}/data/files/${row.new_filename}`, error => {
+                if (error) console.log(error)
+            });
 
         })   
         
